@@ -1,8 +1,7 @@
-# AWR.Athena
+# AWR.Snowflake
 
-This is an R client to interact with the [AWS Athena](https://aws.amazon.com/athena) service, including wrapper functions 
-around the [Athena JDBC package](http://docs.aws.amazon.com/athena/latest/ug/connect-with-jdbc.html) to 
-query data stored in S3.
+This is an R client to interact with [Snowflake](https://www.snowflake.net), including wrapper functions 
+around the [Snowflake JDBC driver](https://docs.snowflake.net/manuals/user-guide/jdbc.html).
 
 ## Installation
 
@@ -11,31 +10,30 @@ The package is not yet hosted on CRAN.
 But you can easily install the most recent development version of the R package as well:
 
 ```r
-devtools::install_github('nfultz/AWR.Athena')
+devtools::install_github('daroczig/AWR.Snowflake')
 ```
 
 ## What is it good for?
 
-This provides a simplified DBI driver for Athena:
+This provides a simplified DBI driver for Snowflake:
 
 ```r
 require(DBI)
-con <- dbConnect(AWR.Athena::Athena(), region='us-west-2', s3_staging_dir='s3://nfultz-athena-staging', schema_name='default')
+con <- dbConnect(AWR.Snowflake::Snowflake(),
+  account_name = 'foobar', user = 'username', password = '***', db = 'SNOWFLAKE_SAMPLE_DATA')
 dbListTables(con)
-dbGetQuery(con, "Select count(*) from sampledb.elb_logs")
+dbGetQuery(con, 'SELECT COUNT(*) from TPCDS_SF100TCL.call_center')
+dbGetQuery(con, 'SELECT * FROM tpch_sf1.lineitem limit 5')
+dbDisconnect(con)
 ```
 
 Installing and loading the JDBC driver package is handled automatically. 
 
-## What if I want to do other cool things with Athena and R?
+## What if I want to do other cool things with Snowflake and R?
 
-Most database functionality is actually provided by RJDBC, but if you have Athena-specific
+Most database functionality is actually provided by RJDBC, but if you have Snowflake-specific
 features in mind, please open a ticket on the feature request, or even better, submit a pull request :)
 
 ## It doesn't work here!
 
-To be able to use this package, you need to have an [AWS account](https://aws.amazon.com/free). If you do not have one already, you can register for free at Amazon although usage is currently $5 / terabyte scanned.
-
-Once you have an AWS account, make sure your default AWS Credentials are available via the [DefaultAWSCredentialsProviderChain ](http://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/credentials.html). 
-In short, you either provide a default credential profiles file at `~/.aws/credentials`, use the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables; or if using `AWR.Athena` on AWS, you can also rely on the EC2 instance profile credentials 
-or ECS Task Role as well.
+To be able to use this package, you need to have a Snowflake account. If you do not have one already, you sign up for a free trial.
