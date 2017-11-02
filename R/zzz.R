@@ -2,9 +2,15 @@
 #' @importFrom rJava .jpackage
 .onLoad <- function(libname, pkgname) {
 
+    ## path to the java folder
+    path <- paste0(system.file('', package = pkgname), 'java')
+    if (!file.exists(path)) {
+        dir.create(path)
+    }
+
     ## path to the JDBC driver
     file <- sprintf('snowflake-jdbc-%s.jar', packageVersion(pkgname))
-    path <- file.path(system.file('java', package = pkgname), file)
+    path <- file.path(path, file)
 
     ## check if the jar is available and install if needed (on first load)
     if (!file.exists(path)) {
