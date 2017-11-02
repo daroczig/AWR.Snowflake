@@ -1,10 +1,11 @@
 Package: AWR.Snowflake
 Type: Package
-Title: Snowflake JDBC DBI Wrapper
+Title: Snowflake 'JDBC' DBI Wrapper
 Version: 3.3.1
-Author: Neal Fultz <nfultz@gmail.com>, Gergely Daróczi <gergely@system1.com>
-Maintainer: Gergely Daróczi <gergely@system1.com>
-Description: 'RJDBC' DBI driver to Snowflake, which is a scalable, cloud-based data-warehouse based on Amazon Web Services.
+Authors@R: c(
+    person("Neal", "Fultz", email = "nfultz@gmail.com", role = "aut"),
+    person("Gergely", "Daroczi", email = "gergely@system1.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0003-3149-8537")))
+Description: 'RJDBC' DBI driver to Snowflake, which is a 'scalable', cloud-based data-warehouse based on Amazon Web Services.
 License: AGPL-3
 Encoding: UTF-8
 LazyData: true
